@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\GuardianNews;
 use App\Models\NewsApi;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
@@ -38,18 +39,26 @@ class FetchNewsApi extends Command
             $newsData = json_decode($response->getBody(), true);
             foreach ($newsData['articles'] as $newsItem) {
                 $published = Carbon::parse($newsItem['publishedAt'])->format('Y-m-d H:i:s');
-                $year = Carbon::parse($newsItem['publishedAt'])->format('Y');
-                NewsApi::create([
-                    'title' => $newsItem['title'],
-                    'description' => $newsItem['description'],
-                    'url' => $newsItem['url'],
-                    'author' => $newsItem['author'],
-                    'source' => $newsItem['source']['name'],
-                    'published_at' => $year < 2024 ? null : $published,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
+                $check = $this->check_for_duplicate($newsItem['url']);
+                if($check){
+                    // url is always unique and since we don`t have an id in this api; will use it as a unique identifier
+                    $year = Carbon::parse($newsItem['publishedAt'])->format('Y');
+                    NewsApi::create([
+                        'title' => $newsItem['title'],
+                        'description' => $newsItem['description'],
+                        'url' => $newsItem['url'],
+                        'author' => $newsItem['author'],
+                        'source' => $newsItem['source']['name'],
+                        'published_at' => $year < 2024 ? null : $published,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
             }
         }
+    }
+
+    private function check_for_duplicate($url){
+        return !(NewsApi::where('url', $url)->get()->count() > 0);
     }
 }

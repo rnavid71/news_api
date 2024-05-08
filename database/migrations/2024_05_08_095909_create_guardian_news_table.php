@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('guardian_news', function (Blueprint $table) {
             $table->id();
+            $table->string('news_id');
             $table->string('title');
             $table->string('type');
             $table->string('section_id');

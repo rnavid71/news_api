@@ -11,11 +11,6 @@
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">اخبار</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-left">
-                        <li class="breadcrumb-item"><a href="#">خانه</a></li>
-                    </ol>
-                </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -51,9 +46,7 @@
                                     <thead>
                                     <tr>
                                         <th>title</th>
-                                        <th>author</th>
                                         <th>source</th>
-                                        <th>url</th>
                                         <th>publish date</th>
                                         <th>update date</th>
                                     </tr>
@@ -63,9 +56,7 @@
                                     @foreach($newsapi as $newsapi_item)
                                         <tr>
                                             <td>{{$newsapi_item->title}}</td>
-                                            <td>{{$newsapi_item->author}}</td>
                                             <td><span class="badge badge-warning">{{$newsapi_item->source}}</span></td>
-                                            <td><a href="{{$newsapi_item->url}}">Link</a></td>
                                             <td>{{\Carbon\Carbon::parse($newsapi_item->published_at)->format("Y-m-d")}}</td>
                                             <td>{{\Carbon\Carbon::parse($newsapi_item->updated_at)->diffForHumans()}}</td>
                                         </tr>
@@ -78,7 +69,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">See all</a>
+                            <a href="{{route('newsapi')}}" class="btn btn-sm btn-info float-left">See all</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>
@@ -108,9 +99,7 @@
                                     <thead>
                                     <tr>
                                         <th>title</th>
-                                        <th>type</th>
                                         <th>section name</th>
-                                        <th>url</th>
                                         <th>publish date</th>
                                         <th>update date</th>
                                     </tr>
@@ -120,9 +109,7 @@
                                     @foreach($guardian as $guardian_item)
                                         <tr>
                                             <td>{{$guardian_item->title}}</td>
-                                            <td>{{$guardian_item->type}}</td>
                                             <td><span class="badge badge-success">{{$guardian_item->section_name}}</span></td>
-                                            <td><a href="{{$guardian_item->url}}">Link</a></td>
                                             <td>{{\Carbon\Carbon::parse($guardian_item->published_at)->format("Y-m-d")}}</td>
                                             <td>{{\Carbon\Carbon::parse($guardian_item->updated_at)->diffForHumans()}}</td>
                                         </tr>
@@ -135,7 +122,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">See all</a>
+                            <a href="{{route('guardian')}}" class="btn btn-sm btn-info float-left">See all</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

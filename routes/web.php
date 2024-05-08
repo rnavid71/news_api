@@ -23,5 +23,12 @@ Auth::routes();
 Route::group(['prefix' => '/admin','middleware' => ['auth']],function (){
     Route::get('/', [AdminController::class, 'index'])->name('home');
     Route::get('/test', [AdminController::class, 'test'])->name('test');
+    Route::get('/guardian', [AdminController::class, 'guardian_posts'])->name('guardian');
+    Route::get('/newsapi', [AdminController::class, 'newsapi_posts'])->name('newsapi');
+
+    // update News manually
+    Route::post('guardian/update/{id}',[AdminController::class,'update_guardian'])->name('update-guardian');
+    Route::post('newsapi/update/{id}',[AdminController::class,'update_newsapi'])->name('update-newsapi');
+
 });
 

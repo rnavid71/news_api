@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class GuardianNews extends Model
 {
     use HasFactory;
-    protected $fillable = ['type', 'section_id', 'section_name', 'title', 'url', 'published_at'];
+    protected $fillable = ['type', 'news_id', 'section_id', 'section_name', 'title', 'url', 'published_at'];
 }
