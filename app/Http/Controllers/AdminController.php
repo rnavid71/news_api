@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function index(){
-        $guardian = GuardianNews::all()->take(10);
-        $newsapi = NewsApi::all()->take(10);
+        $guardian = GuardianNews::all()->sortByDesc('id')->take(10);
+        $newsapi = NewsApi::all()->sortByDesc('id')->take(10);
         return view('admin-dashboard',compact(['guardian','newsapi']));
     }
 
