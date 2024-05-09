@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GuardianNews;
+use App\Models\NewsApi;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,6 +21,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $guardian = GuardianNews::orderBy('id','DESC')->paginate(10);
+        $newsapi = NewsApi::orderBy('id','DESC')->paginate(10);
+        return view('welcome',compact('guardian','newsapi'));
     }
 }

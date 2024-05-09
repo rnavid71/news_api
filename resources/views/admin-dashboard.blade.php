@@ -28,7 +28,16 @@
                     <!-- TABLE: LATEST ORDERS -->
                     <div class="card">
                         <div class="card-header border-transparent">
-                            <h3 class="card-title">News API Latest News</h3>
+                            @php
+                                $last_newsapi = \App\Models\UpdateNews::where('source','newsapi')->orderBy('id','desc')->first();
+                                if($last_newsapi){
+                                    $time = \Carbon\Carbon::parse($last_newsapi->created_at)->diffForHumans();
+                                }else{
+                                    $time = 'no records';
+                                }
+
+                            @endphp
+                            <h3 class="card-title">NewsApi Latest News</h3><small>update: {{$time}}</small>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse">
@@ -41,6 +50,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body p-0">
+                            <p style="text-align: center">
+                                <a href="{{route('manual-update','newsapi')}}" class="btn btn-warning">Update NewsApi</a>
+                            </p>
                             <div class="table-responsive">
                                 <table class="table m-0">
                                     <thead>
@@ -80,8 +92,17 @@
                 <div class="col-md-6">
                     <!-- TABLE: LATEST ORDERS -->
                     <div class="card">
-                        <div class="card-header border-transparent">
-                            <h3 class="card-title">Guardian Latest News</h3>
+                        <div class="card-header border-transparent" style="direction: ltr">
+                            @php
+                                $last_guardian = \App\Models\UpdateNews::where('source','guardian')->orderBy('id','desc')->first();
+                                if($last_guardian){
+                                    $time = \Carbon\Carbon::parse($last_guardian->created_at)->diffForHumans();
+                                }
+                                else{
+                                    $time = 'no records';
+                                }
+                            @endphp
+                            <h3 class="card-title">Guardian Latest News</h3><small>update: {{$time}}</small>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse">
@@ -93,6 +114,9 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
+                        <p style="text-align: center">
+                            <a href="{{route('manual-update','guardian')}}" class="btn btn-success">Update Guardian</a>
+                        </p>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table m-0">

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\GuardianNews;
 use App\Models\NewsApi;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -40,20 +39,5 @@ class AdminController extends Controller
         ]);
         $id->update($result);
         return redirect()->route('newsapi');
-    }
-
-    public function test(){
-        // newsapi.org
-//        $apiKey = env('News_api');
-//        $client = new Client();
-//        $response = $client->request('GET', 'https://newsapi.org/v2/top-headlines?country=us&apiKey=' . $apiKey);
-//        dd(json_decode($response->getBody(),true));
-
-        //guardian
-//        $apiKey = env('Guardian_api');
-//        $client = new Client();
-//        $response = $client->request('GET','https://content.guardianapis.com/search?api-key='.$apiKey);
-//        dd(json_decode($response->getBody(),true));
-        return true;
     }
 }

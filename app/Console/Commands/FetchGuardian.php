@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\GuardianNews;
+use App\Models\UpdateNews;
 use Carbon\Carbon;
 use DateTime;
 use GuzzleHttp\Client;
@@ -31,6 +32,10 @@ class FetchGuardian extends Command
      */
     public function handle()
     {
+        // after running this command we log it
+        UpdateNews::create([
+            'source' => 'guardian',
+        ]);
         $apiKey = env('Guardian_api');
         $client = new Client();
         $response = $client->request('GET','https://content.guardianapis.com/search?api-key='.$apiKey);

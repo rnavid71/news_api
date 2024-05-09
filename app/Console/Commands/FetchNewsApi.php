@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\GuardianNews;
 use App\Models\NewsApi;
+use App\Models\UpdateNews;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -31,6 +32,10 @@ class FetchNewsApi extends Command
      */
     public function handle()
     {
+        // after running this command we log it
+        UpdateNews::create([
+            'source' => 'newsapi',
+        ]);
         $apiKey = env('News_api');
         $client = new Client();
         $response = $client->request('GET', 'https://newsapi.org/v2/top-headlines?country=us&apiKey=' . $apiKey);
